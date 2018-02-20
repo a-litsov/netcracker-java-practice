@@ -18,12 +18,47 @@ class CircleTest {
     }
 
     @RepeatedTest(10)
-    void constructorShouldCorrectlyInitalizeRadius() {
+    void constructorShouldCorrectlyInitRadius() {
         Random r = new Random();
         double expectedRadius = r.nextDouble();
         Circle c = new Circle(expectedRadius);
 
         assertEquals(expectedRadius, c.getRadius());
+    }
+
+    @RepeatedTest(10)
+    void constructorShouldCorrectlyInitRadiusAndColor() {
+        Random r = new Random();
+        double expectedRadius = r.nextDouble();
+        // just easy way to generate random string made of digits ;)
+        String expectedColor = Long.toString(r.nextLong());
+        Circle c = new Circle(expectedRadius, expectedColor);
+
+        assertEquals(expectedRadius, c.getRadius());
+        assertEquals(expectedColor, c.getColor());
+    }
+
+    @RepeatedTest(10)
+    void radiusShouldBeSetCorrectly() {
+        Random r = new Random();
+        double expectedRadius = r.nextDouble();
+
+        Circle c = new Circle();
+        c.setRadius(expectedRadius);
+
+        assertEquals(expectedRadius, c.getRadius());
+    }
+
+    @RepeatedTest(10)
+    void colorShouldBeSetCorrectly() {
+        Random r = new Random();
+        // just easy way to generate random string made of digits ;)
+        String expectedColor = Long.toString(r.nextLong());
+
+        Circle c = new Circle();
+        c.setColor(expectedColor);
+
+        assertEquals(expectedColor, c.getColor());
     }
 
     @RepeatedTest(10)
@@ -36,5 +71,18 @@ class CircleTest {
 
         double delta = 1e-5d;
         assertEquals(expectedArea, c.getArea(), delta);
+    }
+
+    @RepeatedTest(10)
+    void toStringShouldWorkCorrectly() {
+        Random r = new Random();
+        // just easy way to generate random string made of digits ;)
+        String color = Long.toString(r.nextLong());
+        double radius = r.nextDouble();
+
+        Circle c = new Circle(radius, color);
+        String expectedStrRepres = "Circle[radius=" + radius + ", color=" + color + "]";
+
+        assertEquals(expectedStrRepres, c.toString());
     }
 }
