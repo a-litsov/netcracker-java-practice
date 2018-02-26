@@ -1,4 +1,4 @@
-package com.edu_netcracker.nn.adlitsov.lection2;
+package com.edu_netcracker.nn.adlitsov.homework1;
 
 public class Cylinder extends Circle {
     private double height = 1.0;

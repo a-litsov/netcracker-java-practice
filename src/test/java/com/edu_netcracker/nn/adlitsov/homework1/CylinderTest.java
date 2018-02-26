@@ -1,7 +1,6 @@
-package com.edu_netcracker.nn.adlitsov.lection2;
+package com.edu_netcracker.nn.adlitsov.homework1;
 
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 

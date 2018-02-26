@@ -1,4 +1,4 @@
-package com.edu_netcracker.nn.adlitsov.lection2;
+package com.edu_netcracker.nn.adlitsov.homework1;
 
 public class Circle {
     private double radius = 1.0d;
