@@ -1,7 +1,9 @@
 package com.edu_netcracker.nn.adlitsov.homework1;
 
+import java.util.Random;
+
 public class Circle {
-    private double radius = 1.0d;
+    private double radius = 1.0;
     private String color = "red";
 
     public Circle() {
@@ -9,11 +11,12 @@ public class Circle {
     }
 
     public Circle(double radius) {
+        validateRadius(radius);
         this.radius = radius;
     }
 
     public Circle(double radius, String color) {
-        this.radius = radius;
+        this(radius);
         this.color = color;
     }
 
@@ -22,7 +25,14 @@ public class Circle {
     }
 
     public void setRadius(double radius) {
+        validateRadius(radius);
         this.radius = radius;
+    }
+
+    private void validateRadius(double radius) {
+        if (radius < 0) {
+            throw new IllegalArgumentException("radius must be non-negative double value");
+        }
     }
 
     public String getColor() {
@@ -40,5 +50,15 @@ public class Circle {
     @Override
     public String toString() {
         return "Circle[radius=" + radius + ", color=" + color + "]";
+    }
+
+    public static void main(String[] args) {
+        Random rnd = new Random();
+        final float MAX_VAL = 10;
+        float radius = rnd.nextFloat() * MAX_VAL;
+
+        Circle circ = new Circle(radius);
+        System.out.println(circ);
+        System.out.println("It's area: " + circ.getArea());
     }
 }
