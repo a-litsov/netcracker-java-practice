@@ -11,8 +11,11 @@ public class Rectangle {
     }
 
     public Rectangle(float length, float width) {
-        setLength(length);
-        setWidth(width);
+        validateLength(length);
+        this.length = length;
+
+        validateWidth(width);
+        this.width = width;
     }
 
     public float getLength() {
@@ -20,10 +23,14 @@ public class Rectangle {
     }
 
     public void setLength(float length) {
+        validateLength(length);
+        this.length = length;
+    }
+
+    private void validateLength(float length) {
         if (length < 0) {
             throw new IllegalArgumentException("length must be non-negative float value");
         }
-        this.length = length;
     }
 
     public float getWidth() {
@@ -31,10 +38,14 @@ public class Rectangle {
     }
 
     public void setWidth(float width) {
+        validateWidth(width);
+        this.width = width;
+    }
+
+    private void validateWidth(float width) {
         if (width < 0) {
             throw new IllegalArgumentException("width must be non-negative float value");
         }
-        this.width = width;
     }
 
     public double getArea() {
