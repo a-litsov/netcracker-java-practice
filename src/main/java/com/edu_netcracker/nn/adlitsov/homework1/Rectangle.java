@@ -11,8 +11,8 @@ public class Rectangle {
     }
 
     public Rectangle(float length, float width) {
-        this.length = length;
-        this.width = width;
+        setLength(length);
+        setWidth(width);
     }
 
     public float getLength() {
@@ -20,6 +20,9 @@ public class Rectangle {
     }
 
     public void setLength(float length) {
+        if (length < 0) {
+            throw new IllegalArgumentException("length must be non-negative float value");
+        }
         this.length = length;
     }
 
@@ -28,6 +31,9 @@ public class Rectangle {
     }
 
     public void setWidth(float width) {
+        if (width < 0) {
+            throw new IllegalArgumentException("width must be non-negative float value");
+        }
         this.width = width;
     }
 
@@ -46,9 +52,9 @@ public class Rectangle {
 
     public static void main(String[] args) {
         Random rnd = new Random();
-        final float MAX_VAL = 100;
-        float length = rnd.nextFloat() % MAX_VAL;
-        float width = rnd.nextLong() % MAX_VAL;
+        final float MAX_VAL = 10;
+        float length = rnd.nextFloat() * MAX_VAL;
+        float width = rnd.nextFloat() * MAX_VAL;
 
         Rectangle rect = new Rectangle(length, width);
         System.out.println(rect);
