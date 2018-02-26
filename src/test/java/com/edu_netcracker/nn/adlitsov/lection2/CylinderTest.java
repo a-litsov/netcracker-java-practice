@@ -2,6 +2,7 @@ package com.edu_netcracker.nn.adlitsov.lection2;
 
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
@@ -20,4 +21,5 @@ class CylinderTest {
         double delta = 1e-5;
         assertEquals(expectedVolume, c.getVolume(), delta);
     }
+
 }
