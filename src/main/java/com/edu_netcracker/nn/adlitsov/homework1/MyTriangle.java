@@ -72,7 +72,8 @@ public class MyTriangle {
 
         try {
             MyTriangle triangle = new MyTriangle(p1, p2, p3);
-            System.out.println("My triangle is: " + triangle + " and it is " + triangle.getType());
+            System.out.println("My triangle is: " + triangle + ", it's type: " + triangle.getType() + ", it's " +
+                    "perimeter: " + triangle.getPerimeter());
         } catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }
