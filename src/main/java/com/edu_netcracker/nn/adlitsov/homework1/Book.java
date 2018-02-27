@@ -11,9 +11,12 @@ public class Book {
 
     public Book(String name, Author[] authors, double price) {
         validateAuthors(authors);
+        if (price < 0) {
+            throw new IllegalArgumentException("Price must be non-negative number");
+        }
 
         this.name = name;
-        this.authors = authors;
+        this.authors = Arrays.copyOf(authors, authors.length);
         this.price = price;
     }
 
