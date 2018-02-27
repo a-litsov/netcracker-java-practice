@@ -11,6 +11,10 @@ public class Author {
         this.gender = gender;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Author[name=" + name + ", email=" + email + ", gender=" + gender + "]";
