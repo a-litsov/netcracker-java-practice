@@ -3,8 +3,13 @@ package com.edu_netcracker.nn.adlitsov.homework1;
 import java.util.Random;
 
 public class Circle {
+
+    public enum Color {
+        RED, GREEN, BLUE
+    }
+
     private double radius = 1.0;
-    private String color = "red";
+    private Color color = Color.RED;
 
     public Circle() {
 
@@ -15,7 +20,7 @@ public class Circle {
         this.radius = radius;
     }
 
-    public Circle(double radius, String color) {
+    public Circle(double radius, Color color) {
         this(radius);
         this.color = color;
     }
@@ -35,11 +40,11 @@ public class Circle {
         }
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
