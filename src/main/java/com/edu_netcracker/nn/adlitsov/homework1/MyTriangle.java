@@ -19,10 +19,18 @@ public class MyTriangle {
     }
 
     public MyTriangle(MyPoint v1, MyPoint v2, MyPoint v3) {
-        this(v1.getX(), v1.getY(), v2.getX(), v2.getY(), v3.getX(), v3.getY());
+        validateTriangle(v1, v2, v3);
+
+        this.v1 = new MyPoint(v1);
+        this.v2 = new MyPoint(v2);
+        this.v3 = new MyPoint(v3);
     }
 
     private void validateTriangle(MyPoint v1, MyPoint v2, MyPoint v3) {
+        if (v1 == null || v2 == null || v3 == null) {
+            throw new IllegalArgumentException("All points must be not-null references");
+        }
+
         if (!isTriangle(v1, v2, v3)) {
             throw new IllegalArgumentException("Triangle does not exist: " +
                     "sum of two sides must be greater than other side");
