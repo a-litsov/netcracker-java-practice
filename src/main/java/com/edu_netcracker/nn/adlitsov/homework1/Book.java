@@ -10,10 +10,11 @@ public class Book {
     private int qty;
 
     public Book(String name, Author[] authors, double price) {
-        validateAuthors(authors);
-        if (price < 0) {
-            throw new IllegalArgumentException("Price must be non-negative number");
+        if (name == null) {
+            throw new IllegalArgumentException("Book must have a name");
         }
+        validateAuthors(authors);
+        validatePrice(price);
 
         this.name = name;
         this.authors = Arrays.copyOf(authors, authors.length);
@@ -22,22 +23,32 @@ public class Book {
 
     public Book(String name, Author[] authors, double price, int qty) {
         this(name, authors, price);
+
+        validateQty(qty);
         this.qty = qty;
     }
 
     private void validateAuthors(Author[] authors) {
-        if (authors.length == 0) {
+        if (authors == null || authors.length == 0) {
             throw new IllegalArgumentException("At least 1 author must be specified");
         }
 
-        int validAuthorsCount = 0;
         for (Author author : authors) {
-            if (author != null) {
-                validAuthorsCount++;
+            if (author == null) {
+                throw new IllegalArgumentException("All author references in authors array must be not null");
             }
         }
-        if (validAuthorsCount != authors.length) {
-            throw new IllegalArgumentException("All author references in authors array must be not null");
+    }
+
+    private void validatePrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price must be non-negative number");
+        }
+    }
+
+    private void validateQty(int qty) {
+        if (qty < 0) {
+            throw new IllegalArgumentException("Qty must be non-negative integral number");
         }
     }
 
@@ -54,6 +65,7 @@ public class Book {
     }
 
     public void setPrice(double price) {
+        validatePrice(price);
         this.price = price;
     }
 
@@ -62,6 +74,7 @@ public class Book {
     }
 
     public void setQty(int qty) {
+        validateQty(qty);
         this.qty = qty;
     }
 
@@ -90,6 +103,9 @@ public class Book {
         private char gender;
 
         public Author(String name, String email, char gender) {
+            if (name == null || email == null) {
+                throw new IllegalArgumentException("Author must have name and e-mail");
+            }
             this.name = name;
             this.email = email;
             this.gender = gender;
