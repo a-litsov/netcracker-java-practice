@@ -1,6 +1,5 @@
-package com.edu_netcracker.nn.adlitsov.homework1;
+package com.netcracker.adlitsov.homework1;
 
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;

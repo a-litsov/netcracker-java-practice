@@ -1,4 +1,4 @@
-package com.edu_netcracker.nn.adlitsov.homework1;
+package com.netcracker.adlitsov.homework1;
 
 import java.util.Arrays;
 import java.util.Random;

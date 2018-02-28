@@ -1,15 +1,14 @@
-package com.edu_netcracker.nn.adlitsov.homework1;
+package com.netcracker.adlitsov.homework1;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static com.edu_netcracker.nn.adlitsov.homework1.MyTriangle.*;
+import static com.netcracker.adlitsov.homework1.MyTriangle.*;
 
 public class MyTriangleTest {
 
