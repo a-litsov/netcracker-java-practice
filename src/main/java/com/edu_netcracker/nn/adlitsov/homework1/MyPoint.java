@@ -14,6 +14,14 @@ public class MyPoint {
         this.y = y;
     }
 
+    public MyPoint(MyPoint point) {
+        if (point == null) {
+            throw new IllegalArgumentException("Point must be not-null reference");
+        }
+        this.x = point.x;
+        this.y = point.y;
+    }
+
     public int getX() {
         return x;
     }
