@@ -15,9 +15,7 @@ public class MyPoint {
     }
 
     public MyPoint(MyPoint point) {
-        if (point == null) {
-            throw new IllegalArgumentException("Point must be not-null reference");
-        }
+        validatePoint(point);
         this.x = point.x;
         this.y = point.y;
     }
@@ -57,11 +55,18 @@ public class MyPoint {
     }
 
     public double distance(MyPoint another) {
+        validatePoint(another);
         return distance(another.x, another.y);
     }
 
     public double distance() {
         return distance(0, 0);
+    }
+
+    private void validatePoint(MyPoint point) {
+        if (point == null) {
+            throw new IllegalArgumentException("Point must be not-null reference");
+        }
     }
 
     public static void main(String[] args) {
