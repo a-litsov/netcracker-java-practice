@@ -22,6 +22,8 @@ public class Circle {
 
     public Circle(double radius, Color color) {
         this(radius);
+
+        validateColor(color);
         this.color = color;
     }
 
@@ -40,11 +42,18 @@ public class Circle {
         }
     }
 
+    private void validateColor(Color color) {
+        if (color == null) {
+            throw new IllegalArgumentException("color must be not-null reference");
+        }
+    }
+
     public Color getColor() {
         return color;
     }
 
     public void setColor(Color color) {
+        validateColor(color);
         this.color = color;
     }
 
