@@ -9,6 +9,9 @@ public class Employee {
     private int salary;
 
     public Employee(int id, String firstName, String lastName, int salary) {
+        validateName(firstName, lastName);
+        validateSalary(salary);
+
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,6 +39,7 @@ public class Employee {
     }
 
     public void setSalary(int salary) {
+        validateSalary(salary);
         this.salary = salary;
     }
 
@@ -45,12 +49,25 @@ public class Employee {
 
     public int raiseSalary(int percent) {
         salary *= 1 + percent / 100.0;
+        validateSalary(salary);
         return salary;
     }
 
     @Override
     public String toString() {
         return "Employee[id=" + id + ", name=" + firstName + " " + lastName + ", salary=" + salary + "]";
+    }
+
+    public void validateName(String firstName, String lastName) {
+        if (firstName == null || lastName == null) {
+            throw new IllegalArgumentException("First name and last name must be not null");
+        }
+    }
+
+    public void validateSalary(int salary) {
+        if (salary < 0) {
+            throw new IllegalArgumentException("Salary must be non-negative number");
+        }
     }
 
     public static void main(String[] args) {
