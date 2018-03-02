@@ -3,8 +3,8 @@ package com.netcracker.adlitsov.homework2;
 import java.util.Objects;
 
 public class MyComplex {
-    double real;
-    double imag;
+    private double real;
+    private double imag;
 
     public MyComplex() {
 
