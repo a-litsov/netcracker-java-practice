@@ -1,6 +1,7 @@
 package com.netcracker.adlitsov.homework2;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class MyPolinomial {
     private double[] coeffs;
@@ -22,18 +23,34 @@ public class MyPolinomial {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = getDegree(); i >= 0; i--) {
+
+        int degree = getDegree();
+        for (int i = degree; i >= 0; i--) {
+            // Skipping all zero terms
             if (coeffs[i] == 0) {
                 continue;
             }
 
-            if (coeffs[i] < 0) {
-                sb.append("(").append(coeffs[i]).append(")");
-            } else {
-                sb.append(coeffs[i]);
+            // Adding positive sign for all positive terms except the eldest one
+            if (coeffs[i] > 0 && i < degree) {
+                sb.append("+");
             }
-            sb.append("x^").append(i).append((i > 0) ? "+" : "");
+            sb.append(coeffs[i]);
+
+            // adding a degree
+            if (i > 1) {
+                sb.append("x^").append(i);
+            } else {
+                if (i == 1) {
+                    sb.append("x");
+                }
+            }
         }
+
+        if (sb.length() == 0) {
+            sb.append(0.0);
+        }
+
         return sb.toString();
     }
 
@@ -48,10 +65,18 @@ public class MyPolinomial {
     public MyPolinomial add(MyPolinomial right) {
         validatePolynomial(right);
 
-        int degree = Math.max(getDegree(), right.getDegree());
-        double[] newCoeffs = new double[degree];
-        for (int i = 0; i < newCoeffs.length; i++) {
-            newCoeffs[i] = coeffs[i] + right.coeffs[i];
+        int leftDegree = getDegree(), rightDegree = right.getDegree();
+        int degree = Math.max(leftDegree, rightDegree);
+
+        double[] newCoeffs = new double[degree + 1];
+
+        for (int i = 0; i <= degree; i++) {
+            if (i <= leftDegree) {
+                newCoeffs[i] += coeffs[i];
+            }
+            if (i <= rightDegree) {
+                newCoeffs[i] += right.coeffs[i];
+            }
         }
 
         return new MyPolinomial(newCoeffs);
@@ -61,7 +86,7 @@ public class MyPolinomial {
         validatePolynomial(right);
 
         int degree = getDegree() + right.getDegree();
-        double[] newCoeffs = new double[degree];
+        double[] newCoeffs = new double[degree + 1];
         for (int i = 0; i <= getDegree(); i++) {
             for (int j = 0; j <= right.getDegree(); j++) {
                 newCoeffs[i + j] += coeffs[i] * right.coeffs[j];
@@ -84,5 +109,33 @@ public class MyPolinomial {
         if (polynomial == null) {
             throw new IllegalArgumentException("polynomial must be not null!");
         }
+    }
+
+    public static void main(String[] args) {
+        final int MAX_DEGREE = 5;
+        final int MIN_VALUE = -5;
+        final int MAX_VALUE = 5;
+
+        // Generating random polynomials and showing them; using Math.random to simplify coeffs
+        Random rnd = new Random();
+        double[] firstCoeffs = rnd.doubles(rnd.nextInt(MAX_DEGREE + 1) + 1, MIN_VALUE, MAX_VALUE)
+                .map(Math::round)
+                .toArray();
+        System.out.println("Coeffs#1: " + Arrays.toString(firstCoeffs));
+
+        MyPolinomial firstPolynomial = new MyPolinomial(firstCoeffs);
+        System.out.println("Polynomial#1: " + firstPolynomial);
+
+        double[] secondCoeffs = rnd.doubles(rnd.nextInt(MAX_DEGREE + 1) + 1, MIN_VALUE, MAX_VALUE)
+                .map(Math::round)
+                .toArray();
+        System.out.println("\nCoeffs#2: " + Arrays.toString(secondCoeffs));
+
+        MyPolinomial secondPolynomial = new MyPolinomial(secondCoeffs);
+        System.out.println("Polynomial#2: " + secondPolynomial);
+
+        // Executing sum and multiply methods
+        System.out.println("\nTheir sum: " + firstPolynomial.add(secondPolynomial));
+        System.out.println("\nTheir mult: " + firstPolynomial.multiply(secondPolynomial));
     }
 }
