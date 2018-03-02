@@ -96,6 +96,70 @@ public class MyPolinomial {
         return new MyPolinomial(newCoeffs);
     }
 
+    /*
+     * This method based on first (degree + 1) 'coeffs' elements comparison.
+     * Two double values are equal if they lay in the same delta segment.
+     */
+    public boolean equals(MyPolinomial other, double delta) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        int degree = getDegree();
+        if (degree != other.getDegree()) {
+            return false;
+        }
+        for (int i = 0; i <= degree; i++) {
+            if (Math.abs(coeffs[i] - other.coeffs[i]) > delta) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+     * This method based on first (degree + 1) 'coeffs' elements comparison.
+     * Two double values are equal if they are exactly the same.
+     */
+    @Override
+    public boolean equals(Object otherObj) {
+        if (this == otherObj) {
+            return true;
+        }
+        if (otherObj == null) {
+            return false;
+        }
+        if (getClass() != otherObj.getClass()) {
+            return false;
+        }
+        MyPolinomial other = (MyPolinomial) otherObj;
+
+        int degree = getDegree();
+        if (degree != other.getDegree()) {
+            return false;
+        }
+        for (int i = 0; i <= degree; i++) {
+            if (coeffs[i] != other.coeffs[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
+     * Default Arrays.hashCode(double[]) but for first (degree + 1) elements.
+     */
+    @Override
+    public int hashCode() {
+        int res = 1;
+        for (int i = 0; i <= getDegree(); i++) {
+            res += 31 * Double.hashCode(coeffs[i]);
+        }
+        return res;
+    }
+
     private void validateCoeffs(double... coeffs) {
         if (coeffs == null) {
             throw new IllegalArgumentException("coeffs array must be not null!");
