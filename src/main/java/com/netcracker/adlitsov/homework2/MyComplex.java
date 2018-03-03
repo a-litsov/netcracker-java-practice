@@ -1,6 +1,7 @@
 package com.netcracker.adlitsov.homework2;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class MyComplex {
     private double real;
@@ -13,6 +14,13 @@ public class MyComplex {
     public MyComplex(double real, double imag) {
         this.real = real;
         this.imag = imag;
+    }
+
+    public MyComplex(MyComplex other) {
+        validateComplex(other);
+
+        real = other.real;
+        imag = other.imag;
     }
 
     public double getReal() {
@@ -171,5 +179,27 @@ public class MyComplex {
         if (compNumber == null) {
             throw new IllegalArgumentException("Passed complex number must be not-null!");
         }
+    }
+
+    public static void main(String[] args) {
+        final int MAX_ABS_VAL = 10;
+        Random rnd = new Random();
+
+        MyComplex complex1 = new MyComplex(rnd.nextInt(2 * MAX_ABS_VAL) - MAX_ABS_VAL,
+                rnd.nextInt(2 * MAX_ABS_VAL) - MAX_ABS_VAL);
+        System.out.println("Complex#1: " + complex1);
+        System.out.println("Argument: " + complex1.argument() + ", Magnitude: " + complex1.magnitude());
+        System.out.println("Conjugate: " + complex1.conjugate());
+
+        MyComplex complex2 = new MyComplex(rnd.nextInt(2 * MAX_ABS_VAL) - MAX_ABS_VAL,
+                rnd.nextInt(2 * MAX_ABS_VAL) - MAX_ABS_VAL);
+        System.out.println("\nComplex#2: " + complex2);
+        System.out.println("Argument: " + complex2.argument() + ", Magnitude: " + complex2.magnitude());
+        System.out.println("Conjugate: " + complex2.conjugate());
+
+        System.out.println("\nTheir sum: " + complex1.addNew(complex2));
+        System.out.println("Their sub: " + complex1.subtractNew(complex2));
+        System.out.println("Their mult: " + new MyComplex(complex1).multiply(complex2));
+        System.out.println("Their div: " + new MyComplex(complex1).divide(complex2));
     }
 }
