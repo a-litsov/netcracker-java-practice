@@ -180,7 +180,7 @@ public class MyPolinomial {
         final int MIN_VALUE = -5;
         final int MAX_VALUE = 5;
 
-        // Generating random polynomials and showing them; using Math.random to simplify coeffs
+        // Generating random polynomials and showing them; using Math.round to simplify coeffs
         Random rnd = new Random();
         double[] firstCoeffs = rnd.doubles(rnd.nextInt(MAX_DEGREE + 1) + 1, MIN_VALUE, MAX_VALUE)
                 .map(Math::round)
