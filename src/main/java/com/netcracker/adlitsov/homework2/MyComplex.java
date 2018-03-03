@@ -38,7 +38,19 @@ public class MyComplex {
 
     @Override
     public String toString() {
-        return "(" + real + "+" + imag + ")";
+        if (imag == 0) {
+            return Double.toString(real);
+        }
+        if (real == 0) {
+            return imag + "i";
+        }
+
+        StringBuilder sb = new StringBuilder("(").append(real);
+        if (imag > 0) {
+            sb.append("+");
+        }
+        sb.append(imag).append("i").append(")");
+        return sb.toString();
     }
 
     public boolean isReal() {
@@ -103,11 +115,9 @@ public class MyComplex {
     }
 
     public MyComplex addNew(MyComplex right) {
-        validateComplex(right);
-
         MyComplex resComplex = new MyComplex(real, imag);
-        resComplex.real += right.real;
-        resComplex.imag += right.imag;
+
+        resComplex.add(right);
 
         return resComplex;
     }
@@ -122,11 +132,9 @@ public class MyComplex {
     }
 
     public MyComplex subtractNew(MyComplex right) {
-        validateComplex(right);
-
         MyComplex resComplex = new MyComplex(real, imag);
-        resComplex.real -= right.real;
-        resComplex.imag -= right.imag;
+
+        resComplex.subtract(right);
 
         return resComplex;
     }
@@ -143,6 +151,9 @@ public class MyComplex {
 
     public MyComplex divide(MyComplex right) {
         validateComplex(right);
+        if (right.real == 0 && right.imag == 0) {
+            throw new IllegalArgumentException("right must not be zero complex number!");
+        }
 
         double leftReal = real, leftImag = imag;
         double divisor = right.real * right.real + right.imag * right.imag;
