@@ -183,16 +183,16 @@ public class MyPolinomial {
         // Generating random polynomials and showing them; using Math.round to simplify coeffs
         Random rnd = new Random();
         double[] firstCoeffs = rnd.doubles(rnd.nextInt(MAX_DEGREE + 1) + 1, MIN_VALUE, MAX_VALUE)
-                .map(Math::round)
-                .toArray();
+                                  .map(Math::round)
+                                  .toArray();
         System.out.println("Coeffs#1: " + Arrays.toString(firstCoeffs));
 
         MyPolinomial firstPolynomial = new MyPolinomial(firstCoeffs);
         System.out.println("Polynomial#1: " + firstPolynomial);
 
         double[] secondCoeffs = rnd.doubles(rnd.nextInt(MAX_DEGREE + 1) + 1, MIN_VALUE, MAX_VALUE)
-                .map(Math::round)
-                .toArray();
+                                   .map(Math::round)
+                                   .toArray();
         System.out.println("\nCoeffs#2: " + Arrays.toString(secondCoeffs));
 
         MyPolinomial secondPolynomial = new MyPolinomial(secondCoeffs);
