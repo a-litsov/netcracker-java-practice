@@ -1,6 +1,7 @@
 package com.netcracker.adlitsov.homework3;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -34,6 +35,19 @@ public class Task1 {
             curMinIndex = i;
             for (int j = i + 1; j < inArray.length; j++) {
                 if (inArray[j] < inArray[curMinIndex]) {
+                    curMinIndex = j;
+                }
+            }
+            swapElems(inArray, i, curMinIndex);
+        }
+    }
+
+    public static void selectionSort(int[] inArray, Comparator<Integer> comp) {
+        int curMinIndex;
+        for (int i = 0; i < inArray.length - 1; i++) {
+            curMinIndex = i;
+            for (int j = i + 1; j < inArray.length; j++) {
+                if (comp.compare(inArray[j], inArray[curMinIndex]) < 0) {
                     curMinIndex = j;
                 }
             }
