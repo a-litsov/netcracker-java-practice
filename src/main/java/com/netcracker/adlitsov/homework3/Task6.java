@@ -372,7 +372,7 @@ public class Task6 {
         System.out.println("\n=====================================\n");
         System.out.println("Array tests:");
 
-        int[] numbers = new Random().ints(SIZE, MIN, MAX).toArray();
+        int[] numbers = new Random().ints(SIZE, MIN, MAX + 1).toArray();
 
         switchTime = runArraySwitchTest(numbers);
         ifElseTime = runArrayIfElseTest(numbers);
