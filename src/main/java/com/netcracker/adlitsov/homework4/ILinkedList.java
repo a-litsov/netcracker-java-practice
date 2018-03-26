@@ -1,6 +1,6 @@
 package com.netcracker.adlitsov.homework4;
 
-public interface ILinkedList<E> {
+public interface ILinkedList<E> extends Iterable<E> {
     int size();
 
     void add(E element);
