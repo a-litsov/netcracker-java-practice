@@ -2,9 +2,12 @@ package com.netcracker.adlitsov.homework4;
 
 import org.junit.jupiter.api.RepeatedTest;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +30,7 @@ public class MyLinkedListTest {
     @RepeatedTest(3)
     void sizeCalculatedProperly() {
         Random rnd = new Random();
-        final int itemsCount = rnd.nextInt(Integer.MAX_VALUE) % MAX_ITEMS;
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
 
         ILinkedList<Object> list = new MyLinkedList<>();
         for (int i = 0; i < itemsCount; i++) {
@@ -44,7 +47,7 @@ public class MyLinkedListTest {
     @RepeatedTest(3)
     void addShouldWorkProperly() {
         Random rnd = new Random();
-        final int itemsCount = rnd.nextInt(Integer.MAX_VALUE) % MAX_ITEMS;
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
         int[] items = new Random().ints(itemsCount).toArray();
 
         ILinkedList<Integer> addList = new MyLinkedList<>();
@@ -61,7 +64,7 @@ public class MyLinkedListTest {
     @RepeatedTest(3)
     void getShouldWorkProperly() {
         Random rnd = new Random();
-        final int itemsCount = rnd.nextInt(Integer.MAX_VALUE) % MAX_ITEMS;
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
         int[] items = new Random().ints(itemsCount).toArray();
 
         ILinkedList<Integer> addList = new MyLinkedList<>();
@@ -80,7 +83,7 @@ public class MyLinkedListTest {
     @RepeatedTest(3)
     void addAtIndexShouldWorkProperlyWithStrings() {
         Random rnd = new Random();
-        final int itemsCount = rnd.nextInt(Integer.MAX_VALUE) % MAX_ITEMS;
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
         final int maxLength = 50;
         String[] items = new String[itemsCount];
         for (int i = 0; i < items.length; i++) {
@@ -105,8 +108,7 @@ public class MyLinkedListTest {
     @RepeatedTest(3)
     void setShouldWorkProperly() {
         Random rnd = new Random();
-        final int itemsCount = rnd.nextInt(Integer.MAX_VALUE) % MAX_ITEMS;
-        final int maxLength = 50;
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
         int[] items = new Random().ints(itemsCount).toArray();
 
         ILinkedList<Integer> myList = new MyLinkedList<>();
@@ -127,5 +129,57 @@ public class MyLinkedListTest {
         for (int i = 0; i < defaultList.size(); i++) {
             assertEquals(defaultList.get(i), myList.get(i));
         }
+    }
+
+    @RepeatedTest(3)
+    void indexOfShouldWorkProperlyWithStrings() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        int[] items = new Random().ints(itemsCount).toArray();
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (int item : items) {
+            list.add(item);
+        }
+
+        List<Integer> indexes = IntStream.range(0, itemsCount).boxed().collect(Collectors.toList());
+        Collections.shuffle(indexes);
+
+        for (int index : indexes) {
+            assertEquals(index, list.indexOf(items[index]));
+        }
+    }
+
+    @RepeatedTest(3)
+    void indexOfShouldWorkProperlyWithNull() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        final int nullPosition = rnd.nextInt(itemsCount);
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (int i = 0; i < itemsCount; i++) {
+            if (i != nullPosition) {
+                list.add(i);
+            } else {
+                list.add(null);
+            }
+        }
+
+        assertEquals(nullPosition, list.indexOf(null));
+    }
+
+    @RepeatedTest(3)
+    void indexOfShouldWorkProperlyWithUnknownElement() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        final int maxValue = rnd.nextInt(Integer.MAX_VALUE);
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (int i = 0; i < itemsCount; i++) {
+            list.add(i);
+        }
+
+        assertEquals(-1, list.indexOf(maxValue + 1));
+        assertEquals(-1, list.indexOf(-maxValue));
     }
 }

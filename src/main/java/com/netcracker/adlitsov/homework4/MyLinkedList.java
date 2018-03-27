@@ -1,6 +1,7 @@
 package com.netcracker.adlitsov.homework4;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class MyLinkedList<E> implements ILinkedList<E> {
     private Node<E> head, tail;
@@ -83,7 +84,16 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public int indexOf(E element) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Node<E> current = head;
+        int currentIndex = 0;
+        while (current != null) {
+            if (Objects.equals(current.value, element)) {
+                return currentIndex;
+            }
+            current = current.next;
+            currentIndex++;
+        }
+        return -1;
     }
 
     @Override
