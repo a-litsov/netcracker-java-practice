@@ -107,7 +107,8 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        head = null;
+        size = 0;
     }
 
     @Override
