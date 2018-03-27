@@ -87,7 +87,22 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public E remove(int index) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index must be >= 0 and < size! Current index: " + index + ", size: " + size);
+        }
+
+        E removedElement;
+        if (index == 0) {
+            removedElement = head.element;
+            head = head.nextNode;
+        } else {
+            Node<E> prevNode = getNode(index - 1);
+            Node<E> nodeAtIndex = prevNode.nextNode;
+            removedElement = nodeAtIndex.element;
+            prevNode.nextNode = nodeAtIndex.nextNode;
+        }
+        size--;
+        return removedElement;
     }
 
     @Override

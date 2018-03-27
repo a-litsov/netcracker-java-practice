@@ -182,4 +182,28 @@ public class MyLinkedListTest {
         assertEquals(-1, list.indexOf(maxValue + 1));
         assertEquals(-1, list.indexOf(-maxValue));
     }
+
+    @RepeatedTest(3)
+    void removeShouldWorkProperly() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        final List<Integer> items = new Random().ints(itemsCount).boxed().collect(Collectors.toList());
+        final int removeItemsCount = rnd.nextInt(itemsCount + 1);
+
+        ILinkedList<Integer> myList = new MyLinkedList<>();
+        for (int item : items) {
+            myList.add(item);
+        }
+
+        int removePos;
+        for (int i = 0; i < removeItemsCount; i++) {
+            removePos = rnd.nextInt(itemsCount - i);
+            assertEquals(items.remove(removePos), myList.remove(removePos));
+        }
+
+        assertEquals(myList.size(), items.size(), "sizes not equal!");
+        for (int i = 0; i < items.size(); i++) {
+            assertEquals(items.get(i), myList.get(i));
+        }
+    }
 }
