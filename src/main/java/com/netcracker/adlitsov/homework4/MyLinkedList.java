@@ -45,7 +45,14 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public E set(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index must be >= 0 and < size! Current index: " + index + ", size: " + size);
+        }
+
+        Node<E> nodeAtIndex = getNode(index);
+        E prevValue = nodeAtIndex.value;
+        nodeAtIndex.value = element;
+        return prevValue;
     }
 
     @Override

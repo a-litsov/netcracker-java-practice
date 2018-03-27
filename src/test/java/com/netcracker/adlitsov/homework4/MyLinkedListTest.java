@@ -101,4 +101,31 @@ public class MyLinkedListTest {
             assertEquals(defaultList.get(i), addIndList.get(i));
         }
     }
+
+    @RepeatedTest(3)
+    void setShouldWorkProperly() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(Integer.MAX_VALUE) % MAX_ITEMS;
+        final int maxLength = 50;
+        int[] items = new Random().ints(itemsCount).toArray();
+
+        ILinkedList<Integer> myList = new MyLinkedList<>();
+        List<Integer> defaultList = new LinkedList<>();
+        for (int item : items) {
+            myList.add(item);
+            defaultList.add(item);
+        }
+
+        int insertPos;
+        for (int item : items) {
+            insertPos = rnd.nextInt(defaultList.size());
+            myList.set(insertPos, item);
+            defaultList.set(insertPos, item);
+        }
+
+        assertEquals(myList.size(), defaultList.size(), "sizes not equal!");
+        for (int i = 0; i < defaultList.size(); i++) {
+            assertEquals(defaultList.get(i), myList.get(i));
+        }
+    }
 }
