@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class MyLinkedList<E> implements ILinkedList<E> {
-    private Node<E> head, tail;
+    private Node<E> head;
     private int size = 0;
 
     @Override
@@ -14,11 +14,12 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public void add(E element) {
-        if (tail == null) {
-            head = tail = new Node<>(element, null, null);
+        if (head == null) {
+            head = new Node<>(element, null);
         } else {
-            tail = new Node<>(element, tail, null);
-            tail.prev.next = tail;
+            Node<E> newNode = new Node<>(element, null);
+            Node<E> lastNode = getNode(size - 1);
+            lastNode.nextNode = newNode;
         }
         size++;
     }
@@ -32,13 +33,11 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         if (index == size) {
             add(element);
         } else {
-            Node<E> nodeAtIndex = getNode(index);
-            Node<E> newNode = new Node<>(element, nodeAtIndex.prev, nodeAtIndex);
-            nodeAtIndex.prev = newNode;
             if (index == 0) {
-                head = newNode;
+                head = new Node<>(element, head);
             } else {
-                newNode.prev.next = newNode;
+                Node<E> prevNode = getNode(index - 1);
+                prevNode.nextNode = new Node<>(element, prevNode.nextNode);
             }
             size++;
         }
@@ -51,8 +50,8 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         }
 
         Node<E> nodeAtIndex = getNode(index);
-        E prevValue = nodeAtIndex.value;
-        nodeAtIndex.value = element;
+        E prevValue = nodeAtIndex.element;
+        nodeAtIndex.element = element;
         return prevValue;
     }
 
@@ -61,23 +60,13 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index must be >= 0 and < size! Current index: " + index + ", size: " + size);
         }
-
-        return getNode(index).value;
+        return getNode(index).element;
     }
 
     private Node<E> getNode(int index) {
-        int middle = size / 2;
-        Node<E> current;
-        if (index < middle) {
-            current = head;
-            for (int i = 0; i < index; i++) {
-                current = current.next;
-            }
-        } else {
-            current = tail;
-            for (int i = size - 1; i > index; i--) {
-                current = current.prev;
-            }
+        Node<E> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.nextNode;
         }
         return current;
     }
@@ -87,10 +76,10 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         Node<E> current = head;
         int currentIndex = 0;
         while (current != null) {
-            if (Objects.equals(current.value, element)) {
+            if (Objects.equals(current.element, element)) {
                 return currentIndex;
             }
-            current = current.next;
+            current = current.nextNode;
             currentIndex++;
         }
         return -1;
@@ -117,13 +106,12 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     private static class Node<E> {
-        E value;
-        Node<E> prev, next;
+        E element;
+        Node<E> nextNode;
 
-        Node(E value, Node<E> prev, Node<E> next) {
-            this.value = value;
-            this.prev = prev;
-            this.next = next;
+        Node(E element, Node<E> nextNode) {
+            this.element = element;
+            this.nextNode = nextNode;
         }
     }
 }
