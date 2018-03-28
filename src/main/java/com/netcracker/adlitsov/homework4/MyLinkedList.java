@@ -1,7 +1,9 @@
 package com.netcracker.adlitsov.homework4;
 
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.function.IntFunction;
 
 public class MyLinkedList<E> implements ILinkedList<E> {
     private Node<E> head;
@@ -112,8 +114,45 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
-    public E[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Object[] toArray() {
+        Object[] resArray = new Object[size];
+        Node<E> current = head;
+        int i = 0;
+        while (current != null) {
+            resArray[i++] = current.element;
+            current = current.nextNode;
+        }
+        return resArray;
+    }
+
+    @Override
+    public <T> T[] toArray(T[] array) {
+        if (array.length < size) {
+            array = (T[]) Array.newInstance(array.getClass().getComponentType(), size);
+        }
+
+        Object[] tmpArray = array;
+        Node<E> current = head;
+        for (int i = 0; i < size; i++) {
+            tmpArray[i] = current.element;
+            current = current.nextNode;
+        }
+
+        if (size < array.length) {
+            array[size] = null;
+        }
+        return array;
+    }
+
+    @Override
+    public <T> T[] toArray(IntFunction<T[]> constructor) {
+        T[] array = constructor.apply(size);
+        Object[] tmpArray = array;
+        int i = 0;
+        for (Node<E> current = head; current != null; current = current.nextNode) {
+            tmpArray[i++] = current.element;
+        }
+        return array;
     }
 
     @Override

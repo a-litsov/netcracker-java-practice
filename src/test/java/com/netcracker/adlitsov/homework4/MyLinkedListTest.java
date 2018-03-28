@@ -2,13 +2,11 @@ package com.netcracker.adlitsov.homework4;
 
 import org.junit.jupiter.api.RepeatedTest;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyLinkedListTest {
@@ -48,7 +46,7 @@ public class MyLinkedListTest {
     void addShouldWorkProperly() {
         Random rnd = new Random();
         final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
-        int[] items = new Random().ints(itemsCount).toArray();
+        int[] items = rnd.ints(itemsCount).toArray();
 
         ILinkedList<Integer> addList = new MyLinkedList<>();
         for (int item : items) {
@@ -109,7 +107,7 @@ public class MyLinkedListTest {
     void setShouldWorkProperly() {
         Random rnd = new Random();
         final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
-        int[] items = new Random().ints(itemsCount).toArray();
+        int[] items = rnd.ints(itemsCount).toArray();
 
         ILinkedList<Integer> myList = new MyLinkedList<>();
         List<Integer> defaultList = new LinkedList<>();
@@ -135,7 +133,7 @@ public class MyLinkedListTest {
     void indexOfShouldWorkProperlyWithStrings() {
         Random rnd = new Random();
         final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
-        int[] items = new Random().ints(itemsCount).toArray();
+        int[] items = rnd.ints(itemsCount).toArray();
 
         ILinkedList<Integer> list = new MyLinkedList<>();
         for (int item : items) {
@@ -187,7 +185,7 @@ public class MyLinkedListTest {
     void removeShouldWorkProperly() {
         Random rnd = new Random();
         final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
-        final List<Integer> items = new Random().ints(itemsCount).boxed().collect(Collectors.toList());
+        final List<Integer> items = rnd.ints(itemsCount).boxed().collect(Collectors.toList());
         final int removeItemsCount = rnd.nextInt(itemsCount + 1);
 
         ILinkedList<Integer> myList = new MyLinkedList<>();
@@ -206,4 +204,56 @@ public class MyLinkedListTest {
             assertEquals(items.get(i), myList.get(i));
         }
     }
+
+    @RepeatedTest(3)
+    void toObjectArrayShouldWorkProperly() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        final Object[] items = rnd.ints(itemsCount).boxed().toArray();
+
+        ILinkedList<Object> list = new MyLinkedList<>();
+        for (Object item : items) {
+            list.add(item);
+        }
+
+        assertArrayEquals(items, list.toArray());
+    }
+
+    @RepeatedTest(3)
+    void toTypedArrayShouldWorkProperly() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        final int itemsCopyCount = itemsCount - 2;
+        Integer[] items = new Integer[itemsCount];
+        items = rnd.ints(itemsCount).boxed().collect(Collectors.toList()).toArray(items);
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (int i = 0; i < itemsCopyCount; i++) {
+            list.add(items[i]);
+        }
+        Integer[] arrayFromList = new Integer[itemsCount];
+        System.arraycopy(items, itemsCopyCount, arrayFromList, itemsCopyCount, itemsCount - itemsCopyCount);
+        arrayFromList = list.toArray(arrayFromList);
+
+        assertArrayEquals(Arrays.copyOf(items, itemsCopyCount), Arrays.copyOf(list.toArray(items), itemsCopyCount));
+        assertEquals(null, arrayFromList[itemsCopyCount]);
+        for (int i = itemsCopyCount + 1; i < itemsCount; i++) {
+            assertEquals(items[i], arrayFromList[i]);
+        }
+    }
+
+    @RepeatedTest(3)
+    void toTypedArrayWithLambdasShouldWorkProperly() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        Integer[] items = rnd.ints(itemsCount).boxed().toArray(Integer[]::new);
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (int i = 0; i < items.length; i++) {
+            list.add(items[i]);
+        }
+
+        assertArrayEquals(items, list.toArray(Integer[]::new));
+    }
+
 }

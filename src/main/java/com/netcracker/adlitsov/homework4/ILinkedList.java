@@ -1,5 +1,7 @@
 package com.netcracker.adlitsov.homework4;
 
+import java.util.function.IntFunction;
+
 public interface ILinkedList<E> extends Iterable<E> {
     int size();
 
@@ -17,7 +19,11 @@ public interface ILinkedList<E> extends Iterable<E> {
 
     void clear();
 
-    E[] toArray();
+    Object[] toArray();
+
+    <T> T[] toArray(T[] array);
+
+    <T> T[] toArray(IntFunction<T[]> constructor);
 
     String toString();
 }
