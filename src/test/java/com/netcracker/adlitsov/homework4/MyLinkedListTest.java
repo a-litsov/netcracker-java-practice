@@ -1,6 +1,7 @@
 package com.netcracker.adlitsov.homework4;
 
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -249,11 +250,47 @@ public class MyLinkedListTest {
         Integer[] items = rnd.ints(itemsCount).boxed().toArray(Integer[]::new);
 
         ILinkedList<Integer> list = new MyLinkedList<>();
-        for (int i = 0; i < items.length; i++) {
-            list.add(items[i]);
+        for (Integer item : items) {
+            list.add(item);
         }
 
         assertArrayEquals(items, list.toArray(Integer[]::new));
     }
 
+    @RepeatedTest(3)
+    void toStringShouldWorkCorrectlyForFullList() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        Integer[] items = rnd.ints(itemsCount).boxed().toArray(Integer[]::new);
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (Integer item : items) {
+            list.add(item);
+        }
+
+        assertEquals(Arrays.toString(items), list.toString());
+    }
+
+    @RepeatedTest(3)
+    void toStringShouldWorkCorrectlyForListWithNull() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        Integer[] items = rnd.ints(itemsCount).boxed().toArray(Integer[]::new);
+        final int nullPos = rnd.nextInt(itemsCount);
+        items[nullPos] = null;
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (Integer item : items) {
+            list.add(item);
+        }
+
+        assertEquals(Arrays.toString(items), list.toString());
+    }
+
+    @Test
+    void toStringShouldWorkCorrectlyForEmptyList() {
+        ILinkedList<Integer> list = new MyLinkedList<>();
+
+        assertEquals("[]", list.toString());
+    }
 }

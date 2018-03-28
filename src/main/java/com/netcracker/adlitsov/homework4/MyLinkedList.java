@@ -156,6 +156,17 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder().append('[');
+        Node<E> current = head;
+        while (current != null) {
+            sb.append(current.element).append((current.nextNode != null) ? ", " : "");
+            current = current.nextNode;
+        }
+        return sb.append(']').toString();
+    }
+
+    @Override
     public Iterator<E> iterator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
