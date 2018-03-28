@@ -2,6 +2,7 @@ package com.netcracker.adlitsov.homework4;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
@@ -168,7 +169,27 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new MyListIterator();
+    }
+
+    private class MyListIterator implements Iterator<E> {
+        Node<E> current = head;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            E element = current.element;
+            current = current.nextNode;
+            return element;
+        }
     }
 
     private static class Node<E> {
