@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.function.IntFunction;
 
 public class MyLinkedList<E> implements ILinkedList<E> {
-    private Node<E> head;
+    private Node<E> head, tail;
     private int size = 0;
 
     @Override
@@ -17,12 +17,12 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public void add(E element) {
-        if (head == null) {
-            head = new Node<>(element, null);
+        if (tail == null) {
+            head = tail = new Node<>(element, null);
         } else {
             Node<E> newNode = new Node<>(element, null);
-            Node<E> lastNode = getNode(size - 1);
-            lastNode.nextNode = newNode;
+            tail.nextNode = newNode;
+            tail = newNode;
         }
         size++;
     }
@@ -110,7 +110,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public void clear() {
-        head = null;
+        head = tail = null;
         size = 0;
     }
 
