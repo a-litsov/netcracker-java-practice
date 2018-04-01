@@ -127,6 +127,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] array) {
         if (array.length < size) {
             array = (T[]) Array.newInstance(array.getClass().getComponentType(), size);
@@ -146,6 +147,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T[] toArray(IntFunction<T[]> constructor) {
         T[] array = constructor.apply(size);
         Object[] tmpArray = array;
@@ -174,6 +176,8 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     private class MyListIterator implements Iterator<E> {
         Node<E> current = head;
+        Node<E> prev, prevPrev;
+        private boolean isRemovable;
 
         @Override
         public boolean hasNext() {
@@ -185,10 +189,32 @@ public class MyLinkedList<E> implements ILinkedList<E> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-
             E element = current.element;
+            prevPrev = prev;
+            prev = current;
             current = current.nextNode;
+            isRemovable = true;
             return element;
+        }
+
+        @Override
+        public void remove() {
+            if (!isRemovable) {
+                throw new IllegalStateException();
+            }
+            if (prevPrev == null) {
+                // removing head
+                head = current;
+            } else {
+                if (!hasNext()) {
+                    tail = prevPrev;
+                }
+                prevPrev.nextNode = current;
+            }
+
+            prev = prevPrev;
+            isRemovable = false;
+            size--;
         }
     }
 

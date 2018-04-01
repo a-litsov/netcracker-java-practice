@@ -7,8 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MyLinkedListTest {
 
@@ -292,5 +291,95 @@ public class MyLinkedListTest {
         ILinkedList<Integer> list = new MyLinkedList<>();
 
         assertEquals("[]", list.toString());
+    }
+
+    @RepeatedTest(3)
+    void iteratorPlainNextShouldWorkCorrectly() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        Integer[] items = rnd.ints(itemsCount).boxed().toArray(Integer[]::new);
+
+        ILinkedList<Integer> list = new MyLinkedList<>();
+        for (int item : items) {
+            list.add(item);
+        }
+
+        Iterator<Integer> it = list.iterator();
+        for (Integer item : items) {
+            assertEquals(item, it.next());
+        }
+        assertFalse(it.hasNext());
+    }
+
+    @Test
+    void nextForEmptyListShouldThrowNSEException() {
+        ILinkedList<Object> list = new MyLinkedList<>();
+        Iterator<Object> it = list.iterator();
+
+        assertThrows(NoSuchElementException.class, it::next);
+    }
+
+    @RepeatedTest(3)
+    void iteratorRemoveRndNodeShouldWorkCorrectly() {
+        Random rnd = new Random();
+        final int itemsCount = rnd.nextInt(MAX_ITEMS + 1);
+        Integer[] items = rnd.ints(itemsCount).boxed().toArray(Integer[]::new);
+        final int removePos = rnd.nextInt(itemsCount);
+
+        ILinkedList<Integer> myList = new MyLinkedList<>();
+        List<Integer> defList = new LinkedList<>();
+        for (int item : items) {
+            myList.add(item);
+            defList.add(item);
+        }
+
+        Iterator<Integer> myIt = myList.iterator();
+        Iterator<Integer> defIt = defList.iterator();
+        for (int i = 0; i <= removePos; i++) {
+            defIt.next();
+            myIt.next();
+        }
+        defIt.remove();
+        myIt.remove();
+        myIt = myList.iterator();
+        defIt = defList.iterator();
+        for (int i = 0; i < itemsCount - 1; i++) {
+            assertEquals(defIt.next(), myIt.next());
+        }
+    }
+
+    @Test
+    void removeForEmptyListShouldThrowISException() {
+        ILinkedList<Object> list = new MyLinkedList<>();
+        Iterator<Object> it = list.iterator();
+
+        assertThrows(IllegalStateException.class, it::remove);
+    }
+
+    @Test
+    void twoRemovesInARowShouldThrowISException() {
+        ILinkedList<Object> list = new MyLinkedList<>();
+        final int itemsCount = 10;
+        for (int i = 0; i < itemsCount; i++) {
+            list.add(new Object());
+        }
+
+        Iterator<Object> it = list.iterator();
+        it.next();
+        it.next();
+        it.remove();
+        assertThrows(IllegalStateException.class, it::remove);
+    }
+
+    @Test
+    void removeBeforeNextShouldThrowISException() {
+        ILinkedList<Object> list = new MyLinkedList<>();
+        final int itemsCount = 10;
+        for (int i = 0; i < itemsCount; i++) {
+            list.add(new Object());
+        }
+
+        Iterator<Object> it = list.iterator();
+        assertThrows(IllegalStateException.class, it::remove);
     }
 }
