@@ -21,10 +21,10 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public void add(E element) {
+        Node<E> newNode = new Node<>(element, null);
         if (tail == null) {
-            head = tail = new Node<>(element, null);
+            head = tail = newNode;
         } else {
-            Node<E> newNode = new Node<>(element, null);
             tail.nextNode = newNode;
             tail = newNode;
         }
