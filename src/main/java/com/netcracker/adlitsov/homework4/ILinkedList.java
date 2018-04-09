@@ -2,6 +2,10 @@ package com.netcracker.adlitsov.homework4;
 
 import java.util.function.IntFunction;
 
+/*
+ * Tests are located in test/java/com/netcracker/adlitsov/homework4/MyLinkedListTest.java instead of MainClass.java
+ */
+
 public interface ILinkedList<E> extends Iterable<E> {
     int size();
 

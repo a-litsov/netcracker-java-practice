@@ -6,6 +6,10 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.IntFunction;
 
+/*
+ * Tests are located in test/java/com/netcracker/adlitsov/homework4/MyLinkedListTest.java instead of MainClass.java
+ */
+
 public class MyLinkedList<E> implements ILinkedList<E> {
     private Node<E> head, tail;
     private int size = 0;
