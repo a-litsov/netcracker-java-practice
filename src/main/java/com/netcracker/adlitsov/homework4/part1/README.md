@@ -1,13 +1,13 @@
-#MyLinkedList
+# MyLinkedList
 **MyLinkedList** - реализация *односвязного* списка на Java.
-##Производительность
-###Добавление элемента в конец
+## Производительность
+### Добавление элемента в конец
 ![Append chart](https://raw.githubusercontent.com/alitsov/netcracker-java-practice/master/src/resources/MyLinkedList/AppendComparison.png)
-###Поиск элемента по значению
+### Поиск элемента по значению
 ![IndexOf chart](https://raw.githubusercontent.com/alitsov/netcracker-java-practice/master/src/resources/MyLinkedList/IndexOfComparison.png)
-###Вставка элементов в случайную позицию
+### Вставка элементов в случайную позицию
 ![Add chart](https://raw.githubusercontent.com/alitsov/netcracker-java-practice/master/src/resources/MyLinkedList/AddComparison.png)
-###Удаление элементов по индексу
+### Удаление элементов по индексу
 ![Remove chart](https://raw.githubusercontent.com/alitsov/netcracker-java-practice/master/src/resources/MyLinkedList/RemoveComparison.png)
 
 Из приведенных графиков видно, что в каждом случае порядок роста функций совпадает. Тем не менее, если в первых двух
