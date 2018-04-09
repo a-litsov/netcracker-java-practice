@@ -1,4 +1,4 @@
-package com.netcracker.adlitsov.homework4;
+package com.netcracker.adlitsov.homework4.part1;
 
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.netcracker.adlitsov.homework4;
+package com.netcracker.adlitsov.homework4.part1;
 
 import java.util.LinkedList;
 import java.util.List;

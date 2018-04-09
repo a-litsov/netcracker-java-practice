@@ -1,4 +1,4 @@
-package com.netcracker.adlitsov.homework4;
+package com.netcracker.adlitsov.homework4.part1;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.function.IntFunction;
 
 /*
- * Tests are located in test/java/com/netcracker/adlitsov/homework4/MyLinkedListTest.java instead of MainClass.java
+ * Tests are located in test/java/com/netcracker/adlitsov/homework4/part1/MyLinkedListTest.java instead of MainClass.java
  */
 
 public class MyLinkedList<E> implements ILinkedList<E> {
