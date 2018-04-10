@@ -1,0 +1,134 @@
+10 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+ArrayList time:                        3772014 ns
+LinkedList time:                      43682270 ns
+--- Add at the start performance comparison ---
+ArrayList time:                        7025467 ns
+LinkedList time:                        104577 ns
+--- Append performance comparison ---
+ArrayList time:                          47800 ns
+LinkedList time:                         84019 ns
+--- Add element at the middle using iterator performance comparison ---
+ArrayList time:                           3242 ns
+LinkedList time:                          1594 ns
+--- Add element at the beginning using iterator performance comparison ---
+ArrayList time:                           2892 ns
+LinkedList time:                           709 ns
+--- Remove element at the middle using iterator performance comparison ---
+ArrayList time:                           4273 ns
+LinkedList time:                          1581 ns
+--- Remove element at the beginning using iterator performance comparison ---
+ArrayList time:                           4569 ns
+LinkedList time:                           872 ns
+--- Remove 1000(10%) random items performance comparison ---
+ArrayList time:                       18032634 ns
+LinkedList time:                      18625238 ns
+
+20 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+ArrayList time:                       14686755 ns
+LinkedList time:                     301519814 ns
+--- Add at the start performance comparison ---
+ArrayList time:                       29435026 ns
+LinkedList time:                        245323 ns
+--- Append performance comparison ---
+ArrayList time:                          91125 ns
+LinkedList time:                        180014 ns
+--- Add element at the middle using iterator performance comparison ---
+ArrayList time:                           4668 ns
+LinkedList time:                          1857 ns
+--- Add element at the beginning using iterator performance comparison ---
+ArrayList time:                           4960 ns
+LinkedList time:                           779 ns
+--- Remove element at the middle using iterator performance comparison ---
+ArrayList time:                           6309 ns
+LinkedList time:                          1315 ns
+--- Remove element at the beginning using iterator performance comparison ---
+ArrayList time:                           7444 ns
+LinkedList time:                           865 ns
+--- Remove 2000(10%) random items performance comparison ---
+ArrayList time:                       63476636 ns
+LinkedList time:                      70374170 ns
+
+40 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+ArrayList time:                       61994066 ns
+LinkedList time:                    1740040312 ns
+--- Add at the start performance comparison ---
+ArrayList time:                      130664234 ns
+LinkedList time:                        435827 ns
+--- Append performance comparison ---
+ArrayList time:                         180949 ns
+LinkedList time:                        369863 ns
+--- Add element at the middle using iterator performance comparison ---
+ArrayList time:                           6610 ns
+LinkedList time:                          1686 ns
+--- Add element at the beginning using iterator performance comparison ---
+ArrayList time:                           9861 ns
+LinkedList time:                           779 ns
+--- Remove element at the middle using iterator performance comparison ---
+ArrayList time:                           8997 ns
+LinkedList time:                          1601 ns
+--- Remove element at the beginning using iterator performance comparison ---
+ArrayList time:                          14517 ns
+LinkedList time:                           856 ns
+--- Remove 4000(10%) random items performance comparison ---
+ArrayList time:                      271976948 ns
+LinkedList time:                     298193553 ns
+
+80 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+ArrayList time:                      244797552 ns
+LinkedList time:                    8307751499 ns
+--- Add at the start performance comparison ---
+ArrayList time:                      493218207 ns
+LinkedList time:                       1280586 ns
+--- Append performance comparison ---
+ArrayList time:                         685537 ns
+LinkedList time:                       1220756 ns
+--- Add element at the middle using iterator performance comparison ---
+ArrayList time:                          11048 ns
+LinkedList time:                          2164 ns
+--- Add element at the beginning using iterator performance comparison ---
+ArrayList time:                          18954 ns
+LinkedList time:                           774 ns
+--- Remove element at the middle using iterator performance comparison ---
+ArrayList time:                          14168 ns
+LinkedList time:                          1831 ns
+--- Remove element at the beginning using iterator performance comparison ---
+ArrayList time:                          24251 ns
+LinkedList time:                           819 ns
+--- Remove 8000(10%) random items performance comparison ---
+ArrayList time:                     1196814818 ns
+LinkedList time:                    1329457291 ns
+
+100 1000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+ArrayList time:                      398842289 ns
+LinkedList time:                   13485832929 ns
+--- Add at the start performance comparison ---
+ArrayList time:                      809749014 ns
+LinkedList time:                       1627322 ns
+--- Append performance comparison ---
+ArrayList time:                         794010 ns
+LinkedList time:                       1529398 ns
+--- Add element at the middle using iterator performance comparison ---
+ArrayList time:                          14031 ns
+LinkedList time:                          2363 ns
+--- Add element at the beginning using iterator performance comparison ---
+ArrayList time:                          26603 ns
+LinkedList time:                           784 ns
+--- Remove element at the middle using iterator performance comparison ---
+ArrayList time:                          16567 ns
+LinkedList time:                          2012 ns
+--- Remove element at the beginning using iterator performance comparison ---
+ArrayList time:                          32997 ns
+LinkedList time:                           938 ns
+--- Remove 10000(10%) random items performance comparison ---
+ArrayList time:                     1881504079 ns
+LinkedList time:                    2138574321 ns
