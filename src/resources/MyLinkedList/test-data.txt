@@ -1,0 +1,89 @@
+10 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+MyLinkedList time:                    85149019 ns
+LinkedList time:                      41733434 ns
+--- Append performance comparison ---
+MyLinkedList time:                       49734 ns
+LinkedList time:                         64102 ns
+--- Get at random index (10000 times) performance comparison ---
+MyLinkedList time:                    71140673 ns
+LinkedList time:                      36385520 ns
+--- Search 1000(10%) random items performance comparison ---
+MyLinkedList time:                    44911279 ns
+LinkedList time:                      34481443 ns
+--- Remove (almost all) elements at random index performance comparison ---
+MyLinkedList time:                    63503456 ns
+LinkedList time:                      31055221 ns
+
+20 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+MyLinkedList time:                   589739602 ns
+LinkedList time:                     288718082 ns
+--- Append performance comparison ---
+MyLinkedList time:                      102973 ns
+LinkedList time:                        309666 ns
+--- Get at random index (20000 times) performance comparison ---
+MyLinkedList time:                   280641308 ns
+LinkedList time:                     139668260 ns
+--- Search 2000(10%) random items performance comparison ---
+MyLinkedList time:                   188554496 ns
+LinkedList time:                     164348829 ns
+--- Remove (almost all) elements at random index performance comparison ---
+MyLinkedList time:                   266126021 ns
+LinkedList time:                     129701045 ns
+
+40 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+MyLinkedList time:                  3471930189 ns
+LinkedList time:                    1746888993 ns
+--- Append performance comparison ---
+MyLinkedList time:                      391306 ns
+LinkedList time:                        445428 ns
+--- Get at random index (40000 times) performance comparison ---
+MyLinkedList time:                  1137775677 ns
+LinkedList time:                     564603638 ns
+--- Search 4000(10%) random items performance comparison ---
+MyLinkedList time:                  1082279244 ns
+LinkedList time:                     924885579 ns
+--- Remove (almost all) elements at random index performance comparison ---
+MyLinkedList time:                  1108940295 ns
+LinkedList time:                     539753474 ns
+
+80 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+MyLinkedList time:                 18468463256 ns
+LinkedList time:                    8666828346 ns
+--- Append performance comparison ---
+MyLinkedList time:                      499519 ns
+LinkedList time:                        511918 ns
+--- Get at random index (80000 times) performance comparison ---
+MyLinkedList time:                  4723335524 ns
+LinkedList time:                    2248215774 ns
+--- Search 8000(10%) random items performance comparison ---
+MyLinkedList time:                  5689206926 ns
+LinkedList time:                    5190903797 ns
+--- Remove (almost all) elements at random index performance comparison ---
+MyLinkedList time:                  4492934878 ns
+LinkedList time:                    2314533210 ns
+
+100 000
+------ Benchmark begins ------
+--- Add at random index performance comparison ---
+MyLinkedList time:                 28784317453 ns
+LinkedList time:                   13735773766 ns
+--- Append performance comparison ---
+MyLinkedList time:                      604584 ns
+LinkedList time:                        688315 ns
+--- Get at random index (100000 times) performance comparison ---
+MyLinkedList time:                  7106130214 ns
+LinkedList time:                    3718795793 ns
+--- Search 10000(10%) random items performance comparison ---
+MyLinkedList time:                  9668639163 ns
+LinkedList time:                    8477001926 ns
+--- Remove (almost all) elements at random index performance comparison ---
+MyLinkedList time:                  7302210278 ns
+LinkedList time:                    3666889254 ns
