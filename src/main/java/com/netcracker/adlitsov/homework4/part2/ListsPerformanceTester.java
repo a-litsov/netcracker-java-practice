@@ -3,55 +3,67 @@ package com.netcracker.adlitsov.homework4.part2;
 import java.util.*;
 
 public class ListsPerformanceTester {
-    public static final int MAX_STR_LENGTH = 100;
-    private static List<String> linkedList = new LinkedList<>();
-    private static List<String> arrayList = new ArrayList<>();
-    private static Random rnd = new Random();
-    private static String formatLine = "%-30s %,15d ns\n";
-    private static String[] source;
+    private static final int MAX_STR_LENGTH = 100;
+    private static final String FORMAT_LINE = "%-30s %15d ns\n";
 
-    private static void showRunNanoTime(Class listClass, Runnable r) {
+    private List<String> linkedList;
+    private List<String> arrayList;
+    private Random rnd;
+    private String[] source;
+
+    private void showRunNanoTime(Class listClass, Runnable r) {
         long startTime = System.nanoTime();
         r.run();
         long duration = System.nanoTime() - startTime;
-        System.out.printf(formatLine, listClass.getSimpleName() + " time:", duration);
+        System.out.printf(FORMAT_LINE, listClass.getSimpleName() + " time:", duration);
     }
 
-    private static void fillListUsingAppend(List<String> list, int size) {
+    private void fillListUsingAppend(List<String> list, int size) {
         for (int i = 0; i < size; i++) {
             list.add(source[i]);
         }
     }
 
-    private static void testAppendTime(int size) {
+    private void testAppendTime(int size) {
         System.out.println("--- Append performance comparison ---");
         showRunNanoTime(arrayList.getClass(), () -> fillListUsingAppend(arrayList, size));
         showRunNanoTime(linkedList.getClass(), () -> fillListUsingAppend(linkedList, size));
-
     }
 
-    private static void fillListUsingAdd(List<String> list, int[] indexes) {
+    private void fillListUsingAddFirst(List<String> list, int size) {
+        for (int i = 0; i < size; i++) {
+            list.add(0, source[i]);
+        }
+    }
+
+    private void testAddFirstTime(int size) {
+        System.out.println("--- Add at the start performance comparison ---");
+        showRunNanoTime(arrayList.getClass(), () -> fillListUsingAddFirst(arrayList, size));
+        showRunNanoTime(linkedList.getClass(), () -> fillListUsingAddFirst(linkedList, size));
+    }
+
+
+    private void fillListUsingAdd(List<String> list, int[] indexes) {
         for (int i = 0; i < indexes.length; i++) {
             list.add(indexes[i], source[i]);
         }
     }
 
-    private static void testAddTime(int size) {
+    private void testAddTime(int size) {
         System.out.println("--- Add at random index performance comparison ---");
         int[] indexes = generateRandomIndexesForAdd(size);
-
-        showRunNanoTime(linkedList.getClass(), () -> fillListUsingAdd(linkedList, indexes));
         showRunNanoTime(arrayList.getClass(), () -> fillListUsingAdd(arrayList, indexes));
+        showRunNanoTime(linkedList.getClass(), () -> fillListUsingAdd(linkedList, indexes));
     }
 
 
-    private static void removeListElements(String[] elements, List<String> list) {
+    private void removeListElements(String[] elements, List<String> list) {
         for (int i = 0; i < elements.length; i++) {
             list.remove(elements[i]);
         }
     }
 
-    private static void testRemoveTime(int size) {
+    private void testRemoveTime(int size) {
         int removeSize = size / 10;
         System.out.println("--- Remove " + removeSize + "(10%) random items performance comparison ---");
         String[] itemsToRemove = getRandomElementsToRemove(removeSize);
@@ -60,12 +72,22 @@ public class ListsPerformanceTester {
         showRunNanoTime(linkedList.getClass(), () -> removeListElements(itemsToRemove, linkedList));
     }
 
-    private static void clearLists() {
+    private void clearLists() {
         linkedList.clear();
         arrayList.clear();
     }
 
-    private static void addUsingIterator(List<String> list, int index) {
+    private void createLists() {
+        linkedList = new LinkedList<>();
+        arrayList = new ArrayList<>();
+    }
+
+    private void recreateLists() {
+        clearLists();
+        createLists();
+    }
+
+    private void addUsingIterator(List<String> list, int index) {
         ListIterator<String> it = list.listIterator();
         for (int i = 0; i < index; i++) {
             it.next();
@@ -74,7 +96,7 @@ public class ListsPerformanceTester {
         showRunNanoTime(list.getClass(), () -> it.add(str));
     }
 
-    private static void removeUsingIterator(List<String> list, int index) {
+    private void removeUsingIterator(List<String> list, int index) {
         ListIterator<String> it = list.listIterator();
         for (int i = 0; i < index + 1; i++) {
             it.next();
@@ -83,7 +105,7 @@ public class ListsPerformanceTester {
         showRunNanoTime(list.getClass(), it::remove);
     }
 
-    private static void testAddMiddleWithIter() {
+    private void testAddMiddleWithIter() {
         int addPos = source.length / 2;
         System.out.println("--- Add element at the middle using iterator performance comparison ---");
 
@@ -91,7 +113,7 @@ public class ListsPerformanceTester {
         addUsingIterator(linkedList, addPos);
     }
 
-    private static void testAddFirstWithIter() {
+    private void testAddFirstWithIter() {
         int addPos = source.length / 2;
         System.out.println("--- Add element at the beginning using iterator performance comparison ---");
 
@@ -99,7 +121,7 @@ public class ListsPerformanceTester {
         addUsingIterator(linkedList, 0);
     }
 
-    private static void testRemoveMiddleWithIter() {
+    private void testRemoveMiddleWithIter() {
         int removePos = source.length / 2;
         System.out.println("--- Remove element at the middle using iterator performance comparison ---");
 
@@ -108,7 +130,7 @@ public class ListsPerformanceTester {
 
     }
 
-    private static void testRemoveBeginningWithIter() {
+    private void testRemoveBeginningWithIter() {
         int removePos = 0;
         System.out.println("--- Remove element at the beginning using iterator performance comparison ---");
 
@@ -116,7 +138,7 @@ public class ListsPerformanceTester {
         removeUsingIterator(linkedList, removePos);
     }
 
-    public static String randAlphabeticStr(int length) {
+    public String randAlphabeticStr(int length) {
         final String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
         final int alphabetSize = alphabet.length();
 
@@ -128,14 +150,14 @@ public class ListsPerformanceTester {
         return sb.toString();
     }
 
-    private static void generateSource(int size) {
+    private void generateSource(int size) {
         source = new String[size];
         for (int i = 0; i < size; i++) {
-            source[i] = randAlphabeticStr(MAX_STR_LENGTH);
+            source[i] = Integer.toString(i);//randAlphabeticStr(MAX_STR_LENGTH);
         }
     }
 
-    private static int[] generateRandomIndexesForAdd(int size) {
+    private int[] generateRandomIndexesForAdd(int size) {
         int[] indexes = new int[size];
         for (int i = 0; i < size; i++) {
             indexes[i] = rnd.nextInt(i + 1);
@@ -143,7 +165,7 @@ public class ListsPerformanceTester {
         return indexes;
     }
 
-    private static String[] getRandomElementsToRemove(int size) {
+    private String[] getRandomElementsToRemove(int size) {
         String[] elements = new String[size];
         for (int i = 0; i < size; i++) {
             elements[i] = source[rnd.nextInt(source.length)];
@@ -151,19 +173,35 @@ public class ListsPerformanceTester {
         return elements;
     }
 
-    public static void main(String[] args) {
-        System.out.print("Enter elements count:");
-        Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
+    public void test(int size) {
+        rnd = new Random();
+        createLists();
         generateSource(size);
 
         testAddTime(size);
-        clearLists();
+        recreateLists();
+        testAddFirstTime(size);
+        recreateLists();
         testAppendTime(size);
+
         testAddMiddleWithIter();
         testAddFirstWithIter();
         testRemoveMiddleWithIter();
         testRemoveBeginningWithIter();
+
         testRemoveTime(size);
+
+        clearLists();
+        System.gc();
+    }
+
+
+    public static void main(String[] args) {
+        System.out.print("Enter elements count:");
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+
+        ListsPerformanceTester lpt = new ListsPerformanceTester();
+        lpt.test(size);
     }
 }
