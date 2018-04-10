@@ -5,17 +5,23 @@ import java.util.*;
 public class ListsPerformanceTester {
     private static final int MAX_STR_LENGTH = 100;
     private static final String FORMAT_LINE = "%-30s %15d ns\n";
+    private static final int WARM_RUNS = 100;
+    private static final int WARM_DATA_SIZE = 10_000;
 
     private List<String> linkedList;
     private List<String> arrayList;
     private Random rnd;
     private String[] source;
 
+    private boolean warmUp = false;
+
     private void showRunNanoTime(Class listClass, Runnable r) {
         long startTime = System.nanoTime();
         r.run();
         long duration = System.nanoTime() - startTime;
-        System.out.printf(FORMAT_LINE, listClass.getSimpleName() + " time:", duration);
+        if (!warmUp) {
+            System.out.printf(FORMAT_LINE, listClass.getSimpleName() + " time:", duration);
+        }
     }
 
     private void fillListUsingAppend(List<String> list, int size) {
@@ -25,7 +31,9 @@ public class ListsPerformanceTester {
     }
 
     private void testAppendTime(int size) {
-        System.out.println("--- Append performance comparison ---");
+        if (!warmUp) {
+            System.out.println("--- Append performance comparison ---");
+        }
         showRunNanoTime(arrayList.getClass(), () -> fillListUsingAppend(arrayList, size));
         showRunNanoTime(linkedList.getClass(), () -> fillListUsingAppend(linkedList, size));
     }
@@ -37,7 +45,9 @@ public class ListsPerformanceTester {
     }
 
     private void testAddFirstTime(int size) {
-        System.out.println("--- Add at the start performance comparison ---");
+        if (!warmUp) {
+            System.out.println("--- Add at the start performance comparison ---");
+        }
         showRunNanoTime(arrayList.getClass(), () -> fillListUsingAddFirst(arrayList, size));
         showRunNanoTime(linkedList.getClass(), () -> fillListUsingAddFirst(linkedList, size));
     }
@@ -50,7 +60,9 @@ public class ListsPerformanceTester {
     }
 
     private void testAddTime(int size) {
-        System.out.println("--- Add at random index performance comparison ---");
+        if (!warmUp) {
+            System.out.println("--- Add at random index performance comparison ---");
+        }
         int[] indexes = generateRandomIndexesForAdd(size);
         showRunNanoTime(arrayList.getClass(), () -> fillListUsingAdd(arrayList, indexes));
         showRunNanoTime(linkedList.getClass(), () -> fillListUsingAdd(linkedList, indexes));
@@ -65,34 +77,18 @@ public class ListsPerformanceTester {
 
     private void testRemoveTime(int size) {
         int removeSize = size / 10;
-        System.out.println("--- Remove " + removeSize + "(10%) random items performance comparison ---");
         String[] itemsToRemove = getRandomElementsToRemove(removeSize);
+        if (!warmUp) {
+            System.out.println("--- Remove " + removeSize + "(10%) random items performance comparison ---");
+        }
 
         showRunNanoTime(arrayList.getClass(), () -> removeListElements(itemsToRemove, arrayList));
         showRunNanoTime(linkedList.getClass(), () -> removeListElements(itemsToRemove, linkedList));
     }
 
-    private void clearLists() {
-        linkedList.clear();
-        arrayList.clear();
-    }
-
-    private void createLists() {
-        linkedList = new LinkedList<>();
-        arrayList = new ArrayList<>();
-    }
-
-    private void recreateLists() {
-        clearLists();
-        createLists();
-    }
-
     private void addUsingIterator(List<String> list, int index) {
-        ListIterator<String> it = list.listIterator();
-        for (int i = 0; i < index; i++) {
-            it.next();
-        }
-        String str = randAlphabeticStr(rnd.nextInt(MAX_STR_LENGTH));
+        ListIterator<String> it = list.listIterator(index);
+        String str = randAlphabeticStr(rnd.nextInt(MAX_STR_LENGTH), rnd);
         showRunNanoTime(list.getClass(), () -> it.add(str));
     }
 
@@ -101,30 +97,33 @@ public class ListsPerformanceTester {
         for (int i = 0; i < index + 1; i++) {
             it.next();
         }
-        String str = randAlphabeticStr(rnd.nextInt(MAX_STR_LENGTH));
+        String str = randAlphabeticStr(rnd.nextInt(MAX_STR_LENGTH), rnd);
         showRunNanoTime(list.getClass(), it::remove);
     }
 
     private void testAddMiddleWithIter() {
         int addPos = source.length / 2;
-        System.out.println("--- Add element at the middle using iterator performance comparison ---");
-
+        if (!warmUp) {
+            System.out.println("--- Add element at the middle using iterator performance comparison ---");
+        }
         addUsingIterator(arrayList, addPos);
         addUsingIterator(linkedList, addPos);
     }
 
     private void testAddFirstWithIter() {
         int addPos = source.length / 2;
-        System.out.println("--- Add element at the beginning using iterator performance comparison ---");
-
+        if (!warmUp) {
+            System.out.println("--- Add element at the beginning using iterator performance comparison ---");
+        }
         addUsingIterator(arrayList, 0);
         addUsingIterator(linkedList, 0);
     }
 
     private void testRemoveMiddleWithIter() {
         int removePos = source.length / 2;
-        System.out.println("--- Remove element at the middle using iterator performance comparison ---");
-
+        if (!warmUp) {
+            System.out.println("--- Remove element at the middle using iterator performance comparison ---");
+        }
         removeUsingIterator(arrayList, removePos);
         removeUsingIterator(linkedList, removePos);
 
@@ -132,29 +131,11 @@ public class ListsPerformanceTester {
 
     private void testRemoveBeginningWithIter() {
         int removePos = 0;
-        System.out.println("--- Remove element at the beginning using iterator performance comparison ---");
-
+        if (!warmUp) {
+            System.out.println("--- Remove element at the beginning using iterator performance comparison ---");
+        }
         removeUsingIterator(arrayList, removePos);
         removeUsingIterator(linkedList, removePos);
-    }
-
-    public String randAlphabeticStr(int length) {
-        final String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
-        final int alphabetSize = alphabet.length();
-
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            sb.append(alphabet.charAt(rnd.nextInt(alphabetSize)));
-        }
-
-        return sb.toString();
-    }
-
-    private void generateSource(int size) {
-        source = new String[size];
-        for (int i = 0; i < size; i++) {
-            source[i] = Integer.toString(i);//randAlphabeticStr(MAX_STR_LENGTH);
-        }
     }
 
     private int[] generateRandomIndexesForAdd(int size) {
@@ -171,6 +152,40 @@ public class ListsPerformanceTester {
             elements[i] = source[rnd.nextInt(source.length)];
         }
         return elements;
+    }
+
+    private void generateSource(int size) {
+        source = new String[size];
+        for (int i = 0; i < size; i++) {
+            source[i] = randAlphabeticStr(MAX_STR_LENGTH, rnd);
+        }
+    }
+
+    public static String randAlphabeticStr(int length, Random rnd) {
+        final String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+        final int alphabetSize = alphabet.length();
+
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(alphabet.charAt(rnd.nextInt(alphabetSize)));
+        }
+
+        return sb.toString();
+    }
+
+    private void clearLists() {
+        linkedList.clear();
+        arrayList.clear();
+    }
+
+    private void createLists() {
+        linkedList = new LinkedList<>();
+        arrayList = new ArrayList<>();
+    }
+
+    private void recreateLists() {
+        clearLists();
+        createLists();
     }
 
     public void test(int size) {
@@ -195,6 +210,16 @@ public class ListsPerformanceTester {
         System.gc();
     }
 
+    public void warmUp(int runsCount, int dataSize) {
+        System.out.println("*** Warming up with " + runsCount + " runs where data size is " + dataSize + " ***");
+        warmUp = true;
+        for (int i = 0; i < runsCount; i++) {
+            System.out.println("* Warming up, run #" + (i + 1) + "*");
+            test(dataSize);
+        }
+        warmUp = false;
+    }
+
 
     public static void main(String[] args) {
         System.out.print("Enter elements count:");
@@ -202,6 +227,8 @@ public class ListsPerformanceTester {
         int size = sc.nextInt();
 
         ListsPerformanceTester lpt = new ListsPerformanceTester();
+        lpt.warmUp(WARM_RUNS, WARM_DATA_SIZE);
+        System.out.println("\n\n------ Benchmark begins ------");
         lpt.test(size);
     }
 }
