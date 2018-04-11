@@ -1,0 +1,74 @@
+10 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashMap time:                          774046 ns
+LinkedHashMap time:                    818648 ns
+TreeMap time:                         3147375 ns
+--- Contains items (shuffled) performance comparison ---
+HashMap time:                          196014 ns
+LinkedHashMap time:                    222145 ns
+TreeMap time:                         2717823 ns
+--- Remove items (shuffled) performance comparison ---
+HashMap time:                          255989 ns
+LinkedHashMap time:                    578255 ns
+TreeMap time:                         2781330 ns
+
+20 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashMap time:                        1904215 ns
+LinkedHashMap time:                  1960026 ns
+TreeMap time:                        8325691 ns
+--- Contains items (shuffled) performance comparison ---
+HashMap time:                          705722 ns
+LinkedHashMap time:                    852351 ns
+TreeMap time:                         7331233 ns
+--- Remove items (shuffled) performance comparison ---
+HashMap time:                          864406 ns
+LinkedHashMap time:                   1624404 ns
+TreeMap time:                         6840755 ns
+
+40 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashMap time:                        4288906 ns
+LinkedHashMap time:                  4515526 ns
+TreeMap time:                       19969466 ns
+--- Contains items (shuffled) performance comparison ---
+HashMap time:                        1956203 ns
+LinkedHashMap time:                  2145250 ns
+TreeMap time:                       19014946 ns
+--- Remove items (shuffled) performance comparison ---
+HashMap time:                        4772285 ns
+LinkedHashMap time:                  5753250 ns
+TreeMap time:                       17554453 ns
+
+80 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashMap time:                       13668214 ns
+LinkedHashMap time:                 15405210 ns
+TreeMap time:                       66718821 ns
+--- Contains items (shuffled) performance comparison ---
+HashMap time:                        7150738 ns
+LinkedHashMap time:                  6987077 ns
+TreeMap time:                       68754619 ns
+--- Remove items (shuffled) performance comparison ---
+HashMap time:                       18606259 ns
+LinkedHashMap time:                 18843424 ns
+TreeMap time:                       62076421 ns
+
+160 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashMap time:                       24744849 ns
+LinkedHashMap time:                 26550136 ns
+TreeMap time:                      166198676 ns
+--- Contains items (shuffled) performance comparison ---
+HashMap time:                       12979820 ns
+LinkedHashMap time:                 12951276 ns
+TreeMap time:                      156893833 ns
+--- Remove items (shuffled) performance comparison ---
+HashMap time:                       32782419 ns
+LinkedHashMap time:                 38447396 ns
+TreeMap time:                      147160863 ns
