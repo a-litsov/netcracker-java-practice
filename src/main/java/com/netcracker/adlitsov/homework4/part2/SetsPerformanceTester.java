@@ -2,7 +2,6 @@ package com.netcracker.adlitsov.homework4.part2;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.netcracker.adlitsov.homework4.part2.ListsPerformanceTester.randAlphabeticStr;
@@ -12,15 +11,15 @@ public class SetsPerformanceTester {
     private static final int MAX_STR_LENGTH = 100;
     private static final String FORMAT_LINE = "%-30s %,15d ns\n";
     private static final int WARM_RUNS = 50;
-    private static final int INNER_WARM_RUNS = 5;
     private static final int WARM_DATA_SIZE = 50_000;
+    private static final int INNER_WARM_RUNS = 5;
 
     private Set<String> hashSet;
     private Set<String> linkedHashSet;
     private Set<String> treeSet;
-    private Random rnd;
     private String[] source;
 
+    private Random rnd;
     private boolean warmUp = false;
 
     private void showRunNanoTime(Class listClass, Runnable r) {
@@ -104,13 +103,6 @@ public class SetsPerformanceTester {
         showRunNanoTime(hashSet.getClass(), () -> removeSetElements(hashSet, elements));
         showRunNanoTime(linkedHashSet.getClass(), () -> removeSetElements(linkedHashSet, elements));
         showRunNanoTime(treeSet.getClass(), () -> removeSetElements(treeSet, elements));
-    }
-
-
-    private int[] getRandomIndexes(int size) {
-        List<Integer> allIndexes = IntStream.range(0, size).boxed().collect(Collectors.toList());
-        Collections.shuffle(allIndexes);
-        return allIndexes.stream().mapToInt(Integer::intValue).toArray();
     }
 
     private String[] getRandomElements(int size) {
