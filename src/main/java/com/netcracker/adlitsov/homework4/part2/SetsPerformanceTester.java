@@ -11,9 +11,9 @@ import static com.netcracker.adlitsov.homework4.part2.ListsPerformanceTester.ran
 public class SetsPerformanceTester {
     private static final int MAX_STR_LENGTH = 100;
     private static final String FORMAT_LINE = "%-30s %,15d ns\n";
-    private static final int WARM_RUNS = 20;
+    private static final int WARM_RUNS = 50;
     private static final int INNER_WARM_RUNS = 5;
-    private static final int WARM_DATA_SIZE = 100_000;
+    private static final int WARM_DATA_SIZE = 50_000;
 
     private Set<String> hashSet;
     private Set<String> linkedHashSet;
@@ -44,13 +44,17 @@ public class SetsPerformanceTester {
             System.out.println("--- Add performance comparison ---");
             // Этот прогревочный цикл здесь необходим, поскольку тот hashSet, который будет заполняться
             // вторым, выполнит это значительно быстрее (видимо, JIT что-то успевает оптимизировать,в частности
-            // все хеш-функции уже будут посчитаны и значения закешированы). В остальных методах результаты
-            // выглядят достоверно без дополнительного прогрева.
+            // все хеш-функции уже будут посчитаны и значения закешированы). TreeSet прогреваем для чистоты
+            // эксперимента. В остальных методах аналогично, иначе результаты получатся недостоверными (
+            // например, будут cильно зависеть от порядка заполнения Set'ов и т.п.).
             for (int i = 0; i < INNER_WARM_RUNS; i++) {
                 fillSet(hashSet, elements);
                 fillSet(linkedHashSet, elements);
+                fillSet(treeSet, elements);
                 clearSets();
+                createSets();
             }
+            System.gc();
         }
 
         showRunNanoTime(hashSet.getClass(), () -> fillSet(hashSet, elements));
@@ -58,38 +62,48 @@ public class SetsPerformanceTester {
         showRunNanoTime(treeSet.getClass(), () -> fillSet(treeSet, elements));
     }
 
-    private void containsSetElements(Set<String> set, int[] indexes) {
-        for (int i = 0; i < indexes.length; i++) {
-            set.contains(source[indexes[i]]);
+    private void containsSetElements(Set<String> set, String[] elements) {
+        for (int i = 0; i < elements.length; i++) {
+            set.contains(elements[i]);
         }
     }
 
     private void testContainsTime(int size) {
-        int[] containsIndexes = getRandomIndexes(size);
+        String[] elements = getRandomElements(size);
         if (!warmUp) {
             System.out.println("--- Contains items (shuffled) performance comparison ---");
+            for (int i = 0; i < INNER_WARM_RUNS; i++) {
+                containsSetElements(hashSet, elements);
+                containsSetElements(linkedHashSet, elements);
+                containsSetElements(treeSet, elements);
+            }
         }
 
-        showRunNanoTime(hashSet.getClass(), () -> containsSetElements(hashSet, containsIndexes));
-        showRunNanoTime(linkedHashSet.getClass(), () -> containsSetElements(linkedHashSet, containsIndexes));
-        showRunNanoTime(treeSet.getClass(), () -> containsSetElements(treeSet, containsIndexes));
+        showRunNanoTime(hashSet.getClass(), () -> containsSetElements(hashSet, elements));
+        showRunNanoTime(linkedHashSet.getClass(), () -> containsSetElements(linkedHashSet, elements));
+        showRunNanoTime(treeSet.getClass(), () -> containsSetElements(treeSet, elements));
     }
 
-    private void removeSetElements(Set<String> set, int[] indexes) {
-        for (int i = 0; i < indexes.length; i++) {
-            set.remove(source[indexes[i]]);
+    private void removeSetElements(Set<String> set, String[] elements) {
+        for (int i = 0; i < elements.length; i++) {
+            set.remove(elements[i]);
         }
     }
 
     private void testRemoveTime(int size) {
-        int[] indexesToRemove = getRandomIndexes(size);
+        String[] elements = getRandomElements(size);
         if (!warmUp) {
             System.out.println("--- Remove items (shuffled) performance comparison ---");
+            for (int i = 0; i < INNER_WARM_RUNS; i++) {
+                removeSetElements(new HashSet<>(hashSet), elements);
+                removeSetElements(new LinkedHashSet<>(hashSet), elements);
+                removeSetElements(new TreeSet<>(hashSet), elements);
+            }
         }
 
-        showRunNanoTime(hashSet.getClass(), () -> removeSetElements(hashSet, indexesToRemove));
-        showRunNanoTime(linkedHashSet.getClass(), () -> removeSetElements(linkedHashSet, indexesToRemove));
-        showRunNanoTime(treeSet.getClass(), () -> removeSetElements(treeSet, indexesToRemove));
+        showRunNanoTime(hashSet.getClass(), () -> removeSetElements(hashSet, elements));
+        showRunNanoTime(linkedHashSet.getClass(), () -> removeSetElements(linkedHashSet, elements));
+        showRunNanoTime(treeSet.getClass(), () -> removeSetElements(treeSet, elements));
     }
 
 
@@ -154,9 +168,9 @@ public class SetsPerformanceTester {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
 
-        SetsPerformanceTester lpt = new SetsPerformanceTester();
-        lpt.warmUp(WARM_RUNS, WARM_DATA_SIZE);
+        SetsPerformanceTester spt = new SetsPerformanceTester();
+        spt.warmUp(WARM_RUNS, WARM_DATA_SIZE);
         System.out.println("\n\n------ Benchmark begins ------");
-        lpt.test(size);
+        spt.test(size);
     }
 }
