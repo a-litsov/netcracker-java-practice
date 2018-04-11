@@ -4,15 +4,15 @@ import java.util.*;
 
 public class ListsPerformanceTester {
     private static final int MAX_STR_LENGTH = 100;
-    private static final String FORMAT_LINE = "%-30s %15d ns\n";
+    private static final String FORMAT_LINE = "%-30s %,15d ns\n";
     private static final int WARM_RUNS = 100;
     private static final int WARM_DATA_SIZE = 10_000;
 
     private List<String> linkedList;
     private List<String> arrayList;
-    private Random rnd;
     private String[] source;
 
+    private Random rnd;
     private boolean warmUp = false;
 
     private void showRunNanoTime(Class listClass, Runnable r) {
