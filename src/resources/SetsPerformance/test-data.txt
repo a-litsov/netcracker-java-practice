@@ -1,0 +1,74 @@
+10 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashSet time:                          843912 ns
+LinkedHashSet time:                  1128523 ns
+TreeSet time:                        3305862 ns
+--- Contains items (shuffled) performance comparison ---
+HashSet time:                          211595 ns
+LinkedHashSet time:                    236811 ns
+TreeSet time:                        2653197 ns
+--- Remove items (shuffled) performance comparison ---
+HashSet time:                          277781 ns
+LinkedHashSet time:                    567783 ns
+TreeSet time:                        2713620 ns
+
+20 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashSet time:                        2132053 ns
+LinkedHashSet time:                  2164453 ns
+TreeSet time:                        8083060 ns
+--- Contains items (shuffled) performance comparison ---
+HashSet time:                          673259 ns
+LinkedHashSet time:                    788978 ns
+TreeSet time:                        6819135 ns
+--- Remove items (shuffled) performance comparison ---
+HashSet time:                        1009690 ns
+LinkedHashSet time:                  1545841 ns
+TreeSet time:                        7810130 ns
+
+40 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashSet time:                        4169455 ns
+LinkedHashSet time:                  4846614 ns
+TreeSet time:                       19640654 ns
+--- Contains items (shuffled) performance comparison ---
+HashSet time:                        2255396 ns
+LinkedHashSet time:                  2535347 ns
+TreeSet time:                       18818176 ns
+--- Remove items (shuffled) performance comparison ---
+HashSet time:                        4906540 ns
+LinkedHashSet time:                  5694470 ns
+TreeSet time:                       18710276 ns
+
+80 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashSet time:                        9817379 ns
+LinkedHashSet time:                 10475812 ns
+TreeSet time:                       66608624 ns
+--- Contains items (shuffled) performance comparison ---
+HashSet time:                        5640529 ns
+LinkedHashSet time:                  5898177 ns
+TreeSet time:                       56687815 ns
+--- Remove items (shuffled) performance comparison ---
+HashSet time:                       15246493 ns
+LinkedHashSet time:                 16234122 ns
+TreeSet time:                       54976942 ns
+
+160 000
+------ Benchmark begins ------
+--- Add performance comparison ---
+HashSet time:                       24646157 ns
+LinkedHashSet time:                 26657777 ns
+TreeSet time:                      148330583 ns
+--- Contains items (shuffled) performance comparison ---
+HashSet time:                       14642975 ns
+LinkedHashSet time:                 14582314 ns
+TreeSet time:                      140771748 ns
+--- Remove items (shuffled) performance comparison ---
+HashSet time:                       32188215 ns
+LinkedHashSet time:                 34332479 ns
+TreeSet time:                      113482200 ns
